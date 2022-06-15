@@ -8,11 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private final Connection connection = Util.getConnection();
+    static Connection connection = Util.getConnection();
 
     public UserDaoJDBCImpl() {
 
@@ -51,6 +50,7 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.setString(2, lastName);
             statement.setByte(3, age);
             statement.executeUpdate();
+            System.out.println("User named " + name + " added to database");
         } catch (SQLException e) {
             System.out.println("Failed to save user");
         }
@@ -80,6 +80,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 user.setAge(resultSet.getByte("age"));
                 list.add(user);
             }
+            System.out.println(list);
         } catch (SQLException e) {
             System.out.println("Failed to get all users from the database");
         }
